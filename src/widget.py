@@ -1,24 +1,23 @@
+from masks import get_mask_account, get_mask_card_number
+
+
 def mask_account_card(crd_or_accnt: str) -> str:
     """Returns reformated card or accnt number"""
-    number = crd_or_accnt.split(" ")[-1]
+    unformatted_list = crd_or_accnt.split(" ")
+    number = "".join([i for i in unformatted_list if i.isdigit()])
     if not number.isdigit():
         return "Ошибка ввода"
-    num_list = []
     if len(number) == 16:
-        num_stars = number[0:6] + "*" * 6 + number[-4:]
-        for i in range(0, 13, 4):
-            num_list.append(num_stars[i : i + 4])
-        num_masked = " ".join(num_list)
+        num_masked = get_mask_card_number(number)
     elif len(number) == 20:
-        num_masked = "**" + number[-4:]
+        num_masked = get_mask_account(number)
     else:
         return "Ошибка длины номера счета"
-    formated = " ".join(crd_or_accnt.split(" ")[:-1]) + " " + num_masked
-    return formated
+    formatted = " ".join([i for i in unformatted_list if i.isalpha()]) + " " + num_masked
+    return formatted
 
 
 def get_date(date_unform: str) -> str:
     """Returns date in dd.mm.yyyy format"""
     date_formated = f"{date_unform[8:10]}.{date_unform[5:7]}.{date_unform[0:4]}"
     return date_formated
-
