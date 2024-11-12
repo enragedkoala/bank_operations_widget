@@ -21,3 +21,6 @@ def get_date(date_unform: str) -> str:
     """Returns date in dd.mm.yyyy format"""
     date_formated = f"{date_unform[8:10]}.{date_unform[5:7]}.{date_unform[0:4]}"
     return date_formated
+
+
+print(mask_account_card("Visa Classic 683198247 9737658"))
