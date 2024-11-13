@@ -17,5 +17,7 @@ def sort_by_date(list_of_operations: list, descending: bool = True) -> list:
         if "date" not in operation.keys():
             print("invalid input")
             quit()
-    operations_sorted_by_date = sorted(list_of_operations, key=lambda operation: operation.get("date"), reverse=descending)
+    operations_sorted_by_date = sorted(
+        list_of_operations, key=lambda operation: operation.get("date"), reverse=descending
+    )
     return operations_sorted_by_date
