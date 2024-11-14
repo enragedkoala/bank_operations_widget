@@ -10,15 +10,15 @@ def test_mask_account_card_correct(raw, formatted):
 
 
 def test_mask_account_card_wrong_input():
-    assert mask_account_card("abcde") == "Ошибка ввода"
-    assert mask_account_card([1,2,3]) == "Ошибка типа данных"
-    assert mask_account_card({1: 5}) == "Ошибка типа данных"
-    assert mask_account_card(123123123) == "Ошибка типа данных"
-    assert mask_account_card("a124455533") == "Ошибка ввода"
-    assert mask_account_card("Visa Classic 683198247673765833") == "Ошибка длины номера счета"
-    assert mask_account_card("6644554345") == "Ошибка длины номера счета"
-    assert mask_account_card("Счет 1231231231231231231231231231") == "Ошибка длины номера счета"
-    assert mask_account_card((1,2,3)) == "Ошибка типа данных"
+    assert mask_account_card("abcde") == "Invalid input(not a number)"
+    assert mask_account_card([1,2,3]) == "Invalid input(data type)"
+    assert mask_account_card({1: 5}) == "Invalid input(data type)"
+    assert mask_account_card(123123123) == "Invalid input(data type)"
+    assert mask_account_card("a124455533") == "Invalid input(not a number)"
+    assert mask_account_card("Visa Classic 683198247673765833") == "Invalid input(number length)"
+    assert mask_account_card("6644554345") == "Invalid input(number length)"
+    assert mask_account_card("Счет 1231231231231231231231231231") == "Invalid input(number length)"
+    assert mask_account_card((1,2,3)) == "Invalid input(data type)"
 
 
 def test_get_date():
@@ -30,7 +30,7 @@ def test_get_date():
     assert get_date("2023.10.19") == "Not an ISO format date"
     assert get_date("fff") == "Not an ISO format date"
     assert get_date("2323232323") == "Not an ISO format date"
-    assert get_date(20240311) == "Ошибка типа данных"
-    assert get_date((1,2,3)) == "Ошибка типа данных"
-    assert get_date({1: 5}) == "Ошибка типа данных"
-    assert get_date([1,2,3]) == "Ошибка типа данных"
+    assert get_date(20240311) == "Invalid input(data type)"
+    assert get_date((1,2,3)) == "Invalid input(data type)"
+    assert get_date({1: 5}) == "Invalid input(data type)"
+    assert get_date([1,2,3]) == "Invalid input(data type)"
