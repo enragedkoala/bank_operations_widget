@@ -1,9 +1,12 @@
 from .masks import get_mask_account, get_mask_card_number
+from datetime import datetime
 
 
-def mask_account_card(crd_or_account: str) -> str:
+def mask_account_card(card_or_account: str) -> str:
     """Returns reformated card or account number"""
-    unformatted_list = crd_or_account.split(" ")
+    if not isinstance(card_or_account, str):
+        return "Ошибка типа данных"
+    unformatted_list = card_or_account.split(" ")
     number = "".join([i for i in unformatted_list if i.isdigit()])
     if not number.isdigit():
         return "Ошибка ввода"
@@ -19,5 +22,11 @@ def mask_account_card(crd_or_account: str) -> str:
 
 def get_date(date_unformatted: str) -> str:
     """Returns date in dd.mm.yyyy format"""
+    if not isinstance(date_unformatted, str):
+        return "Ошибка типа данных"
+    try:
+        datetime.fromisoformat(date_unformatted)
+    except ValueError:
+        return "Not an ISO format date"
     date_formatted = f"{date_unformatted[8:10]}.{date_unformatted[5:7]}.{date_unformatted[0:4]}"
     return date_formatted
