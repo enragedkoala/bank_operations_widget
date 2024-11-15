@@ -70,6 +70,44 @@ print(sorted_ops)
 * Functions in masks.py and widget.py return error messages such as "Ошибка ввода" or "Ошибка длины номера счета" for invalid input.
 * processing.py functions print "invalid input" and quit if the input list is missing required keys.
 
+## Testing
+### Overview of test coverage
+The project includes thorough tests for the masks.py, widget.py, and processing.py modules. These tests ensure that functions behave as expected for both valid and invalid input. The tests are organized into separate files:
+*test_masks.py: Covers functions in masks.py, including:
++get_mask()
++get_mask_card_number()
++get_mask_account()
+*test_widget.py: Tests functions in widget.py, including:
++mask_account_card()
++get_date()
+*test_processing.py: Verifies the behavior of functions in processing.py, including:
++filter_by_state()
++sort_by_date()
+Test coverage report is attached to the project and is presented as index.html in test_report_html directory
+
+### How to Run the Tests
+The project uses pytest as the testing framework. To run the tests:
+1. Ensure pytest is installed:
+   ```pip install pytest```
+2. Run all tests from the root directory of the project:
+   ```pytest```
+
+### Test details:
+test_masks.py:
+*Correct masking: Tests if the functions return correctly masked card and account numbers.
+*Error handling: Ensures appropriate error messages are returned for invalid data types and input lengths.
+
+test_widget.py:
+*test_mask_account_card_correct: Checks if the mask_account_card() function correctly masks valid inputs.
+*test_mask_account_card_wrong_input: Verifies that invalid inputs return the correct error messages.
+*test_get_date: Confirms that the get_date() function formats dates correctly and handles non-ISO inputs with appropriate error responses.
+
+test_processing.py:
+*test_filter_by_state_correct: Tests filter_by_state() with valid inputs to ensure correct filtering.
+*test_filter_by_state_wrong_data_type: Checks that non-list inputs return an empty list.
+*test_sort_by_date_correct: Verifies that sort_by_date() correctly sorts a list of operations.
+*test_sort_by_date_no_date: Ensures that operations missing a date key or an empty list are handled gracefully.
+
 ## Requirements
 * Python 3.8 or higher
    
