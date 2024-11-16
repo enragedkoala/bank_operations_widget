@@ -11,7 +11,7 @@ def get_mask(number: Union[int, str]) -> str:
     if len(num_str) == 16:
         num_stars = num_str[0:6] + "*" * 6 + num_str[-4:]
         for i in range(0, 13, 4):
-            num_list.append(num_stars[i: i + 4])
+            num_list.append(num_stars[i : i + 4])
         num_masked = " ".join(num_list)
     elif len(num_str) == 20:
         num_masked = "**" + num_str[-4:]
@@ -30,7 +30,7 @@ def get_mask_card_number(number: Union[int, str]) -> str:
     if len(num_str) == 16:
         num_stars = num_str[0:6] + "*" * 6 + num_str[-4:]
         for i in range(0, 13, 4):
-            num_list.append(num_stars[i: i + 4])
+            num_list.append(num_stars[i : i + 4])
         num_masked = " ".join(num_list)
     else:
         return "Invalid input(number length)"
