@@ -7,9 +7,9 @@ def filter_by_currency(transactions: list, currency: str) -> Iterator:
         raise TypeError
     for transaction in transactions:
         if (
-            "operationAmount" in transaction and
-            "currency" in transaction["operationAmount"] and
-            transaction["operationAmount"]["currency"]["code"] == currency
+            "operationAmount" in transaction
+            and "currency" in transaction["operationAmount"]
+            and transaction["operationAmount"]["currency"]["code"] == currency
         ):
             yield transaction
 
@@ -25,7 +25,12 @@ def transaction_descriptions(transactions: list) -> Iterator:
 
 def card_number_generator(start: int, end: int) -> Iterator:
     """Function generates split 16-digit card numbers in range (start, end+1)"""
+    max_card_number = 9999999999999999
+    if start > max_card_number:
+        raise TypeError
+    if end > max_card_number:
+        raise TypeError
     for number in range(start, end + 1):
         card_number = f"{number:016d}"
-        split_card_number = f"{card_number[:4]} {card_number[5:8]} {card_number[9:12]} {card_number[12:]}"
+        split_card_number = f"{card_number[:4]} {card_number[4:8]} {card_number[8:12]} {card_number[12:]}"
         yield split_card_number
