@@ -6,12 +6,10 @@ def filter_by_currency(transactions: list, currency: str) -> Iterator:
     if not isinstance(transactions, list):
         raise TypeError
     for transaction in transactions:
-        if (
-            "operationAmount" in transaction
-            and "currency" in transaction["operationAmount"]
-            and transaction["operationAmount"]["currency"]["code"] == currency
-        ):
-            yield transaction
+        if "operationAmount" in transaction:
+            if "currency" in transaction["operationAmount"]:
+                if transaction["operationAmount"]["currency"]["code"] == currency:
+                    yield transaction
 
 
 def transaction_descriptions(transactions: list) -> Iterator:
