@@ -16,6 +16,8 @@ def filter_by_currency(transactions: list, currency: str) -> Iterator:
 
 def transaction_descriptions(transactions: list) -> Iterator:
     """Function takes list of dicts, representing operations and returns Iterator with operations descriptions"""
+    if not isinstance(transactions, list):
+        raise TypeError
     for transaction in transactions:
         if "description" in transaction:
             yield transaction["description"]

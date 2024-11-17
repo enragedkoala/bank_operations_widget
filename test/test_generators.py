@@ -92,3 +92,31 @@ def test_filter_by_currency_data_type():
     with pytest.raises(TypeError):
         generator_int = filter_by_currency(123,"RUB")
         next(generator_int)
+
+
+def test_transaction_descriptions_correct(list_for_generators):
+    generator_descriptions = transaction_descriptions(list_for_generators)
+    assert next(generator_descriptions) == "Перевод организации"
+    assert next(generator_descriptions) == "Перевод со счета на счет"
+    assert next(generator_descriptions) == "Перевод со счета на счет"
+
+
+def test_transaction_descriptions_empty():
+    generator_empty = transaction_descriptions([])
+    with pytest.raises(StopIteration):
+        next(generator_empty)
+
+
+def test_transaction_descriptions_no_description(list_for_processing):
+    generator = transaction_descriptions(list_for_processing)
+    with pytest.raises(StopIteration):
+        next(generator)
+
+
+def test_transaction_descriptions_data_type():
+    with pytest.raises(TypeError):
+        generator_str = transaction_descriptions("string")
+        next(generator_str)
+    with pytest.raises(TypeError):
+        generator_int = transaction_descriptions(123)
+        next(generator_int)
