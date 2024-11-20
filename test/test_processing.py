@@ -1,3 +1,5 @@
+import pytest
+
 from src.processing import filter_by_state, sort_by_date
 
 
@@ -13,15 +15,17 @@ def test_filter_by_state_correct(list_for_processing):
 
 
 def test_filter_by_state_wrong_data_type():
-    assert filter_by_state("dfdfd") == []
-    assert filter_by_state(123123) == []
-    assert filter_by_state({1: 2}) == []
-    assert filter_by_state(12312.0) == []
+    with pytest.raises(TypeError):
+        filter_by_state("dfdfd")
+        filter_by_state(123123)
+        filter_by_state({1: 2})
+        filter_by_state(12312.0)
 
 
 def test_filter_by_state_no_state():
-    assert filter_by_state([{"id": 41428829, "date": "2019-07-03T18:35:29.512364"}]) == []
-    assert filter_by_state([]) == []
+    with pytest.raises(ValueError):
+        filter_by_state([])
+        filter_by_state([{"id": 41428829, "date": "2019-07-03T18:35:29.512364"}])
 
 
 def test_sort_by_date_correct(list_for_processing):
@@ -40,12 +44,14 @@ def test_sort_by_date_correct(list_for_processing):
 
 
 def test_sort_by_date_wrong_data_type():
-    assert sort_by_date(123) == []
-    assert sort_by_date("123") == []
-    assert sort_by_date({1: 23}) == []
-    assert sort_by_date(12.3) == []
+    with pytest.raises(TypeError):
+        sort_by_date(123)
+        sort_by_date("123")
+        sort_by_date({1: 23})
+        sort_by_date(12.3)
 
 
 def test_sort_by_date_no_date(list_for_sort_by_date_no_date):
-    assert sort_by_date(list_for_sort_by_date_no_date) == []
-    assert sort_by_date([]) == []
+    with pytest.raises(ValueError):
+        sort_by_date(list_for_sort_by_date_no_date)
+        sort_by_date([])

@@ -1,3 +1,5 @@
+import pytest
+
 from src.masks import get_mask, get_mask_account, get_mask_card_number
 
 
@@ -11,13 +13,15 @@ def test_get_mask():
     assert get_mask(12341234123412341234) == "**1234"
 
     # Test for an invalid number length
-    assert get_mask("123") == "Invalid input(number length)"
-    assert get_mask(123) == "Invalid input(number length)"
+    with pytest.raises(ValueError):
+        get_mask("123")
+        get_mask(123)
 
     # Test for invalid data type
-    assert get_mask("number") == "Invalid input(data type)"
-    assert get_mask(["123"]) == "Invalid input(data type)"
-    assert get_mask({1: 5, 6: 8}) == "Invalid input(data type)"
+    with pytest.raises(TypeError):
+        get_mask("number")
+        get_mask(["123"])
+        get_mask({1: 5, 6: 8})
 
 
 def test_get_mask_card_number():
@@ -26,13 +30,16 @@ def test_get_mask_card_number():
     assert get_mask_card_number(1234123412341234) == "1234 12** **** 1234"
 
     # Test for an invalid number length
-    assert get_mask_card_number("123") == "Invalid input(number length)"
-    assert get_mask_card_number(123) == "Invalid input(number length)"
+    with pytest.raises(ValueError):
+        get_mask_card_number("123")
+    with pytest.raises(ValueError):
+        get_mask_card_number(123)
 
     # Test for invalid data type
-    assert get_mask_card_number("number") == "Invalid input(data type)"
-    assert get_mask_card_number(["123"]) == "Invalid input(data type)"
-    assert get_mask_card_number({1: 5, 6: 8}) == "Invalid input(data type)"
+    with pytest.raises(TypeError):
+        get_mask_card_number("number")
+        get_mask_card_number(["123"])
+        get_mask_card_number({1: 5, 6: 8})
 
 
 def test_get_mask_account():
@@ -41,10 +48,12 @@ def test_get_mask_account():
     assert get_mask_account(12341234123412341234) == "**1234"
 
     # Test for an invalid number length
-    assert get_mask_account("123") == "Invalid input(number length)"
-    assert get_mask_account(123) == "Invalid input(number length)"
+    with pytest.raises(ValueError):
+        get_mask_account("123")
+        get_mask_account(123)
 
     # Test for invalid data type
-    assert get_mask_account("number") == "Invalid input(data type)"
-    assert get_mask_account(["123"]) == "Invalid input(data type)"
-    assert get_mask_account({1: 5, 6: 8}) == "Invalid input(data type)"
+    with pytest.raises(TypeError):
+        get_mask_account("number")
+        get_mask_account(["123"])
+        get_mask_account({1: 5, 6: 8})
