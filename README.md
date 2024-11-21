@@ -5,7 +5,8 @@ src/
 ├── masks.py   
 ├── widget.py  
 ├── processing.py  
-└── generators.py
+├── generators.py  
+└── decorators.py
 ## Packages and Their Functionalities
 
 ### 1. `masks.py`
@@ -29,6 +30,10 @@ This package provides functionality for filtering and sorting bank operations.
 - **`filter_by_currency(transactions: list, currency: str) -> Iterator`**: Filters a list of bank operations based on currency and returning an itterator.
 - **`transaction_descriptions(transactions: list) -> Iterator`**: Returns a transaction description as an itterator.  
 - **`card_number_generator(start: int, end: int) -> Iterator`**: generates a card number in a given range as an itterator.
+
+### 4. `decorators.py`
+This package provides decorators for different purpose.
+- **`def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]`**: Tests a function and logs it's state (ok or error with it's type) into file or console.
 
 ## Installation
 1. Clone the repository:
@@ -98,10 +103,28 @@ for description in transaction_descriptions(transactions):
 for card_number in card_number_generator(1, 5):
     print(card_number)
 ```
+
+### Example for Decorators:
+```
+from src.decorators import log
+
+@log(filename="logfile.txt")  # Logs to a file
+def add(x: int, y: int) -> int:
+    return x + y
+
+@log()  # Logs to the console
+def divide(x: int, y: int) -> float:
+    return x / y
+
+# Example Calls
+add(3, 5)  # Logs "add ok."
+divide(10, 0)  # Logs "divide error: ZeroDivisionError."
+
+```
 ## Error Handling
-- Functions in masks.py and widget.py return error messages such as "Invalid input(number length)" or "Invalid input(data type)" for invalid input.
-- processing.py functions print "invalid input" and quit if the input list is missing required keys.
+- functions in masks.py, processing.py and widget.py raise error messages such as "Invalid input(number length)" or "Invalid input(data type)" for invalid input with error types.
 - functions in generators.py raise `TypeError` for invalid input
+- decorator log() logs error with it's type and input led to it if it occurs
 
 ## Testing
 ### Overview of test coverage
@@ -120,6 +143,8 @@ The project includes thorough tests for the `masks.py`, `widget.py`, and `proces
 - `filter_by_currency()`
 - `transaction_descriptions()`
 - `card_number_generator`
+5. **`test_decorators.py`**: Verifies the behavior of decorators in decorators.py, including:
+  - `log()`
 Test coverage report is attached to the project and is presented as index.html in test_report_html directory
 
 ### How to Run the Tests
@@ -156,6 +181,15 @@ The project uses pytest as the testing framework. To run the tests:
 - `test_card_number_generator_correct`: Verifies correct generation of card numbers.
 - `test_card_number_generator_data_type`: Checks that invalid inputs raise TypeError.
 - `test_card_number_generator_big_number`: Ensures that excessively large numbers raise TypeError.
+
+**`test_decorators.py`**:
+- `test_log_file_with_get_mask_corr`: Verifies that the decorator logs correct funtion completion state into a file.
+- `test_log_file_with_get_mask_value_error`: Verifies that the decorator logs funtion error, its type and invalid input into a file.
+- `test_log_file_with_get_mask_type_error`: Verifies that the decorator logs funtion error, its type and invalid input into a file.
+- `test_log_no_file_with_get_mask_corr`: Verifies that the decorator logs correct funtion completion state into console.
+- `test_log_no_file_with_get_mask_value_error`: Verifies that the decorator logs funtion error, its type and invalid input into console.
+- `test_log_no_file_with_get_mask_type_error`: Verifies that the decorator logs funtion error, its type and invalid input into console.
+
 
 ## Requirements
 - Python 3.8 or higher
