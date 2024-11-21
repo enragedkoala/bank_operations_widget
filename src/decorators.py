@@ -13,10 +13,9 @@ def log(filename=None):
                 raise error
             finally:
                 if filename:
-                    with open(filename, "a") as file:
+                    with open(filename, "w") as file:
                         file.write(log_message)
                 else:
                     print(log_message)
         return wrapper
     return decorator
-
