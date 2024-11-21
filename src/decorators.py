@@ -1,7 +1,11 @@
-def log(filename=None):
-    """Decorator takes function and filiname(optional) for logging function completion or raising error with its type"""
-    def decorator(func):
-        def wrapper(*args, **kwargs):
+from typing import Any, Callable, Optional
+
+
+def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    """Decorator takes function and filename(optional) for logging function completion or raising error with a type"""
+
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             func_name = func.__name__
             inputs = f"Inputs: {args}, {kwargs}"
             try:
@@ -17,5 +21,7 @@ def log(filename=None):
                         file.write(log_message)
                 else:
                     print(log_message)
+
         return wrapper
+
     return decorator
