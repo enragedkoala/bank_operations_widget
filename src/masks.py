@@ -6,8 +6,7 @@ def get_mask(number: Union[int, str]) -> str:
     if isinstance(number, str) and number.isdigit() or isinstance(number, int):
         num_str = str(number)
     else:
-        print("Invalid input(data type)")
-        raise TypeError
+        raise TypeError("Invalid input(data type)")
     num_list = []
     if len(num_str) == 16:
         num_stars = num_str[0:6] + "*" * 6 + num_str[-4:]
@@ -17,8 +16,7 @@ def get_mask(number: Union[int, str]) -> str:
     elif len(num_str) == 20:
         num_masked = "**" + num_str[-4:]
     else:
-        print("Invalid input(number length)")
-        raise ValueError
+        raise ValueError("Invalid input(number length)")
     return num_masked
 
 
@@ -27,8 +25,7 @@ def get_mask_card_number(number: Union[int, str]) -> str:
     if isinstance(number, str) and number.isdigit() or isinstance(number, int):
         num_str = str(number)
     else:
-        print("Invalid input(data type)")
-        raise TypeError
+        raise TypeError("Invalid input(data type)")
     num_list = []
     if len(num_str) == 16:
         num_stars = num_str[0:6] + "*" * 6 + num_str[-4:]
@@ -36,8 +33,7 @@ def get_mask_card_number(number: Union[int, str]) -> str:
             num_list.append(num_stars[i : i + 4])
         num_masked = " ".join(num_list)
     else:
-        print("Invalid input(number length)")
-        raise ValueError
+        raise ValueError("Invalid input(number length)")
     return num_masked
 
 
@@ -46,11 +42,9 @@ def get_mask_account(number: Union[int, str]) -> str:
     if isinstance(number, str) and number.isdigit() or isinstance(number, int):
         num_str = str(number)
     else:
-        print("Invalid input(data type)")
-        raise TypeError
+        raise TypeError("Invalid input(data type)")
     if len(num_str) == 20:
         num_masked = "**" + num_str[-4:]
     else:
-        print("Invalid input(number length)")
-        raise ValueError
+        raise ValueError("Invalid input(number length)")
     return num_masked
